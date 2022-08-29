@@ -1,0 +1,35 @@
+segway:
+  # Publish all joint states -----------------------------------
+  joint_state_controller:
+    type: joint_state_controller/JointStateController
+    publish_rate: 50  
+
+  # Position Controllers ---------------------------------------
+#  joint1_position_controller:
+#    type: effort_controllers/JointPositionController
+#    joint: w1_joint
+#    pid: {p: 100.0, i: 0.1, d: 10.0}
+#  joint2_position_controller:
+#    type: effort_controllers/JointPositionController
+#    joint: w2_joint
+#    pid: {p: 100.0, i: 0.1, d: 10.0}
+
+  # Velocity Controllers ---------------------------------------
+#  joint1_velocity_controller:
+#    type: effort_controllers/JointVelocityController
+#    joint: w1_joint
+#    pid: {p: 10.0, i: 0, d: 0.1}
+#  joint2_velocity_controller:
+#    type: effort_controllers/JointVelocityController
+#    joint: w2_joint
+#    pid: {p: 10.0, i: 0, d: 0.1}
+
+  # Effort Controllers ---------------------------------------
+  joint1_effort_controller:
+    type: effort_controllers/JointEffortController
+    joint: w1_joint
+    pid: {p: 10.0, i: 0, d: 0.1}
+  joint2_effort_controller:
+    type: effort_controllers/JointEffortController
+    joint: w2_joint
+    pid: {p: 10.0, i: 0, d: 0.1}

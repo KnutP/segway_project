@@ -1,0 +1,122 @@
+<?xml version="1.0"?>
+<!-- Revolute-Revolute Manipulator -->
+<robot name="segway" xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+  <!-- Import all Gazebo-customization elements, including Gazebo colors -->
+  <xacro:include filename="$(find segway_description)/urdf/segway.gazebo" />
+  <!-- Import Rviz colors -->
+  <xacro:include filename="$(find segway_description)/urdf/materials.xacro" />
+
+  <!-- Used for fixing robot to Gazebo 'base_link' -->
+  <link name="dummy"/>
+
+  <joint name="dummy_joint" type="fixed">
+    <parent link="dummy"/>
+    <child link="cyberpod/base_link"/>
+  </joint>
+
+  <link name="cyberpod/base_link">
+    <visual>
+      <origin rpy="0.0 0 0" xyz="0 0 0"/>
+      <geometry>
+	      <mesh filename="package://segway_description/urdf/Frame.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+    <inertial>
+       <origin rpy="0 0 0" xyz="0.0 0.0 0.0"/>
+       <mass value="0.001" />
+       <inertia ixx="0.001" ixy="0" ixz="0" iyy="0.001" iyz="0" izz="0.001" />
+    </inertial>
+
+    <collision>
+      <origin xyz="0 0 0.1"/>
+      <geometry>
+        <box size="0.4 0.38 0.4" />
+      </geometry>
+    </collision>
+
+  </link>
+
+ <joint name="w1_joint" type="continuous">
+    <parent link="cyberpod/base_link"/>
+    <child link="w1_link" />
+    <origin xyz="0 .25 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+  <link name="w1_link" >
+    <inertial>
+      <origin xyz="0 0 0" /> 
+      <mass value="1.0" />
+      <inertia  ixx="0.001" ixy="0.0"  ixz="0.0"  iyy="0.001"  iyz="0.0"  izz="0.001" />
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://segway_description/urdf/WheelL.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.2" />
+      </geometry>
+    </collision>
+  </link>
+
+ <joint name="w2_joint" type="continuous">
+    <parent link="cyberpod/base_link" />
+    <child link="w2_link" />
+    <origin xyz="0 -0.25 0" rpy="0 0 0" />
+    <axis xyz="0 1 0" />
+  </joint>
+
+  <link name="w2_link" >
+    <inertial>
+      <origin xyz="0 0 0" /> 
+      <mass value="1.0" />
+      <inertia  ixx="0.001" ixy="0.0"  ixz="0.0"  iyy="0.001"  iyz="0.0"  izz="0.001" />
+    </inertial>
+
+    <visual>
+      <origin xyz="0 0 0"/>
+      <geometry>
+        <mesh filename="package://segway_description/urdf/WheelR.stl" scale="0.01 0.01 0.01"/>
+      </geometry>
+    </visual>
+
+    <collision>
+      <origin xyz="0 0 0" rpy="1.5708 0 0"/>
+      <geometry>
+        <cylinder length="0.05" radius="0.2" />
+      </geometry>
+    </collision>
+  </link>
+
+  
+  <transmission name="tran1">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="w1_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor1">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+  <transmission name="tran2">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="w2_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="motor2">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+    </actuator>
+  </transmission>
+
+
+</robot>

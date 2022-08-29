@@ -1,0 +1,8 @@
+To run the simulation:
+
+1. Unzip the segway_control folder and place it in your ROS workspace.
+2. Run the catkin_make command to build the project.
+3. Launch the gazebo world using "roslaunch segway_gazebo segway_world.launch"
+4. In a new terminal window, start the controllers using "roslaunch segway_control segway_control.launch"
+5. In another new terminal window, run the desired control file using "python3 [filename]", where filename
+   is one of "segway_PD_controller.py", "segway_computed_torque_controller.py", and "segway_PD_plus_feedforward_controller.py".
